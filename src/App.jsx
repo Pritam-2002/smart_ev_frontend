@@ -1,11 +1,12 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './App.css'
 import LandingPage from './components/shared/landingpage/LandingPage'
-import AuthPage from './components/main/authPage/AuthPage';
+import AuthPage from './components/main/evuserAuthPage/AuthPage';
+import EvStationAuthPage from './components/main/evStationAuthPage/EvStationAuthPage';
 
 
 function App() {
-  // const [setuser]=useAuth()
+ 
   
 
 
@@ -13,7 +14,8 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/auth" element={<AuthPage />} />
+        <Route path="/evuserauth" element={<AuthPage />} />
+        <Route path="/evstationauth" element={<EvStationAuthPage />} />
       </Routes>
     </Router>
 
