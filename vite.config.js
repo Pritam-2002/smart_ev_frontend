@@ -23,6 +23,7 @@ export default defineConfig({
     tailwindcss(),
     react()
   ],
+  assetsInclude: ['**/*.png'],
   server: {port: 5173}
 })
 
