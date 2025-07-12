@@ -82,10 +82,10 @@ const LandingPage = () => {
                 <span className="mr-2"></span>
                 Join as EV Driver
               </button>
-              <button className="px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center">
+              {/* <button className="px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center">
                 <span className="mr-2"></span>
                 Join as Station Manager
-              </button>
+              </button> */}
             </div>
 
             {/* Mobile Menu Button */}

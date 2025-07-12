@@ -12,6 +12,7 @@ import "leaflet/dist/leaflet.css";
 import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
 import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
+import { useLocation } from "react-router-dom";
 
 // 👇 Fix the missing default icon bug in Leaflet
 delete L.Icon.Default.prototype._getIconUrl;
@@ -24,44 +25,50 @@ L.Icon.Default.mergeOptions({
 
 
 const RouteHighlighterMap = () => {
+
+   const location = useLocation();
+  const stationlatlong = location.state?.coordinates;
   const [coordinates, setCoordinates] = useState([]);
   const [routeData, setRouteData] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const fetchRouteFromAPI = async () => {
-    setIsLoading(true);
-    setError(null);
+const fetchRouteFromAPI = async (destinationCoords) => {
+  setIsLoading(true);
+  setError(null);
 
-    try {
-      const response = await fetch("http://localhost:3000/api/driver/getdirection", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          origin_lat: 22.5958,
-          origin_lng:  88.4795,
-          destination_lat: 22.54363,
-          destination_lng: 88.52461,
-          mode: "driving",
-        }),
-      });
+  const [destination_lng, destination_lat] = destinationCoords; // deconstruct properly
 
-      const data = await response.json();
-      console.log("here is the data",data)
+  try {
+    const response = await fetch("http://localhost:3000/api/driver/getdirection", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        origin_lat: 22.5958,
+        origin_lng: 88.4795,
+        destination_lat,
+        destination_lng,
+        mode: "driving",
+      }),
+    });
 
-      if (!response.ok || !data?.data?.routes?.[0]?.overview_polyline) {
-        throw new Error(data.message || "Invalid route data");
-      }
+    const data = await response.json();
+    console.log("here is the data", data);
 
-      processRouteData(data);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setIsLoading(false);
+    if (!response.ok || !data?.data?.routes?.[0]?.overview_polyline) {
+      throw new Error(data.message || "Invalid route data");
     }
-  };
+
+    processRouteData(data);
+  } catch (err) {
+    setError(err.message);
+  } finally {
+    setIsLoading(false);
+  }
+};
+
 
   const processRouteData = useCallback((data) => {
     try {
@@ -75,7 +82,8 @@ const RouteHighlighterMap = () => {
   }, []);
 
   useEffect(()=>{
-    fetchRouteFromAPI()
+    fetchRouteFromAPI(stationlatlong)
+    console.log("here is data coming==>",stationlatlong)
   },[])
   useEffect(()=>{
     console.log("here is testing",)

@@ -85,7 +85,7 @@ export default function BatteryRangeDashboard() {
             coordinates: [77.5946,12.9716] // <--- FIX HERE
         },
         },{withCredentials:true})
-        navigator('/aidashboard')
+        navigator('/aidashboard', { state: { stationData: resonse.data } });
         console.log(resonse.data);
     }catch(error){
         console.error("Error fetching AI recommendations:", error);
@@ -254,7 +254,7 @@ export default function BatteryRangeDashboard() {
         </div>
 
         {/* Data Output */}
-       <button className=' p-5 bg-green-200' onClick={()=>handleai()}>
+       <button className=' p-5 rounded-xl mt-5   flex items-center justify-center bg-green-200' onClick={()=>handleai()}>
         Get Ai Recomendation
        </button>
       </div>
