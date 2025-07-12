@@ -1,9 +1,7 @@
 import React from 'react';
 import { MapPin, Zap, Star, Clock, Users, Battery, Shield } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
 
 const EVStationCard = ({ station }) => {
-    const navigate=useNavigate();
   // Simulated authentication check (replace with your actual logic)
   const isDriver = true; // Example: Replace with `user.role === 'driver'` from context or auth state
 
@@ -140,7 +138,7 @@ const EVStationCard = ({ station }) => {
 
             {/* Quick Actions */}
             <div className="pt-4 border-t border-gray-200">
-              <button onClick={()=>navigate('/direction')} className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-blue-600 hover:to-indigo-700 transform hover:scale-105 transition-all duration-200 shadow-lg">
+              <button className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-blue-600 hover:to-indigo-700 transform hover:scale-105 transition-all duration-200 shadow-lg">
                 <MapPin className="h-5 w-5 inline mr-2" />
                 Get Directions
               </button>
